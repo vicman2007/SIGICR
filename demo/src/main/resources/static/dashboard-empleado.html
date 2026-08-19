@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel Empleado</title>
+    <style>
+      :root {
+        --danger: #ef4444;
+        --bg-color: #f8fafc;
+        --card-bg: #ffffff;
+        --text-main: #0f172a;
+        --text-muted: #64748b;
+        --border: #e2e8f0;
+        --radius: 10px;
+        --shadow:
+          0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family:
+          "Segoe UI",
+          system-ui,
+          -apple-system,
+          sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-main);
+        padding: 40px 20px;
+      }
+
+      .container {
+        max-width: 950px;
+        margin: 0 auto;
+      }
+
+      .header-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--card-bg);
+        padding: 28px;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        border: 1px solid var(--border);
+      }
+
+      h1 {
+        font-size: 1.5rem;
+        margin-bottom: 6px;
+      }
+
+      p {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+      }
+
+      .btn-logout {
+        background: transparent;
+        color: var(--danger);
+        border: 1px solid var(--danger);
+        padding: 8px 16px;
+        border-radius: calc(var(--radius) - 2px);
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .btn-logout:hover {
+        background-color: var(--danger);
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header-card">
+        <div>
+          <h1 id="bienvenida">Bienvenido Empleado</h1>
+          <p>Esta es la vista exclusiva para el perfil EMPLEADO.</p>
+        </div>
+        <button class="btn-logout" onclick="cerrarSesion()">
+          Cerrar Sesión
+        </button>
+      </div>
+    </div>
+
+    <script>
+      const usuario = JSON.parse(sessionStorage.getItem("usuario"));
+      if (!usuario || usuario.rol !== "EMPLEADO") {
+        window.location.href = "/login.html";
+      } else {
+        document.getElementById("bienvenida").textContent =
+          `Bienvenido: ${usuario.nombre}`;
+      }
+      function cerrarSesion() {
+        sessionStorage.clear();
+        window.location.href = "/login.html";
+      }
+    </script>
+  </body>
+</html>
