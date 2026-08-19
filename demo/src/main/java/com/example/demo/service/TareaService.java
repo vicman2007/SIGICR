@@ -3,7 +3,6 @@ package com.example.demo.service;
 import com.example.demo.models.Tarea;
 import com.example.demo.repository.TareaRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,8 +10,11 @@ import java.util.List;
 @Service
 public class TareaService {
 
-    @Autowired
-    private TareaRepository tareaRepository;
+    private final TareaRepository tareaRepository;
+
+    TareaService(TareaRepository tareaRepository) {
+        this.tareaRepository = tareaRepository;
+    }
 
     public List<Tarea> listarTodas() {
         return tareaRepository.findAll();

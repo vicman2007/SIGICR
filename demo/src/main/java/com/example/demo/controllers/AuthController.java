@@ -3,7 +3,6 @@ package com.example.demo.controllers;
 import com.example.demo.models.Usuario;
 import com.example.demo.repository.UsuarioRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +14,11 @@ import java.util.Optional;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
+
+    AuthController(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
+    }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(
@@ -43,14 +45,14 @@ public class AuthController {
 
                 respuesta.put(
                         "redirectUrl",
-                        "/dashboard-admin.html"
+                        "/dashboard/admin"
                 );
 
             } else {
 
                 respuesta.put(
                         "redirectUrl",
-                        "/dashboard-empleado.html"
+                        "/dashboard/empleado"
                 );
             }
 

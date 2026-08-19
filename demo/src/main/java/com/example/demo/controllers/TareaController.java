@@ -4,7 +4,6 @@ import com.example.demo.models.Tarea;
 import com.example.demo.service.TareaService;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +13,11 @@ import java.util.List;
 @RequestMapping("/api/tareas")
 public class TareaController {
 
-    @Autowired
-    private TareaService tareaService;
+    private final TareaService tareaService;
+
+    TareaController(TareaService tareaService) {
+        this.tareaService = tareaService;
+    }
 
     @GetMapping
     public List<Tarea> listar() {
